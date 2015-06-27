@@ -1,3 +1,9 @@
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@AppBundle/Controller/DefaultController.php"
     type:     annotation
+
+logout:
+    path: /logout
+
+login_check:
+    path: /login_check

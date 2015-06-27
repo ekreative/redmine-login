@@ -5,8 +5,6 @@
 
 namespace Ekreative\RedmineLoginBundle\Security;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\SimpleFormAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -14,41 +12,32 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class RedmineAuthenticator implements SimpleFormAuthenticatorInterface
+class RedmineSimpleFormAuthenticator implements SimpleFormAuthenticatorInterface
 {
-    /**
-     * @var Client
-     */
-    private $redmine;
-
-    public function __construct(Client $redmine)
-    {
-        $this->redmine = $redmine;
-    }
-
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
-        try {
-            $response = $this->redmine->get('users/current.json', [
-                'auth' => [$token->getUsername(), $token->getCredentials()]
-            ]);
-
-            if ($response->getStatusCode() != 200) {
-                throw new AuthenticationException('Invalid credentials');
-            }
-
-            $user = new RedmineUser(json_decode($response->getBody(), true)['user']);
-
-            return new UsernamePasswordToken(
-                $user,
-                $user->getApiKey(),
-                $providerKey,
-                $user->getRoles()
+        if (!$userProvider instanceof RedmineUserProvider) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The user provider must be an instance of RedmineUserProvider (%s was given).',
+                    get_class($userProvider)
+                )
             );
         }
-        catch (RequestException $e) {
+
+        $apiKey = $token->getCredentials();
+        $user = $userProvider->getUserForUsernamePassword($token->getUsername(), $token->getCredentials());
+
+        if (!$user) {
             throw new AuthenticationException('Invalid credentials');
         }
+
+        return new UsernamePasswordToken(
+            $user,
+            $apiKey,
+            $providerKey,
+            $user->getRoles()
+        );
     }
 
     public function supportsToken(TokenInterface $token, $providerKey)

@@ -8,12 +8,15 @@ services:
             - %ekreative_redmine_login.redmine%
 
     ekreative_redmine_login.authenticator:
-        class: Ekreative\RedmineLoginBundle\Security\RedmineAuthenticator
-        arguments:
-            - @ekreative_redmine_login.redmine
+        class: Ekreative\RedmineLoginBundle\Security\RedmineSimpleFormAuthenticator
+
+    ekreative_redmine_login.api_authenticator:
+        class: Ekreative\RedmineLoginBundle\Security\RedmineSimplePreAuthenticator
 
     ekreative_redmine_login.provider:
         class: Ekreative\RedmineLoginBundle\Security\RedmineUserProvider
+        arguments:
+            - @ekreative_redmine_login.redmine
 
     ekreative_redmine_login.redmine:
         class: GuzzleHttp\Client

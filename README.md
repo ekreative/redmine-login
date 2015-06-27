@@ -40,6 +40,8 @@
                     login_path:    login
                     username_parameter: ekreative_redmine_login[username]
                     password_parameter: ekreative_redmine_login[password]
+                simple_preauth:
+                    authenticator: ekreative_redmine_login.api_authenticator
                 logout:
                     path: /logout
     
