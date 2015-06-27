@@ -1,0 +1,22 @@
+parameters:
+    ekreative_redmine_login.redmine: ~
+
+services:
+    ekreative_redmine_login.client_provider:
+        class: Ekreative\RedmineLoginBundle\Client\ClientProvider
+        arguments:
+            - %ekreative_redmine_login.redmine%
+
+    ekreative_redmine_login.authenticator:
+        class: Ekreative\RedmineLoginBundle\Security\RedmineAuthenticator
+        arguments:
+            - @ekreative_redmine_login.redmine
+
+    ekreative_redmine_login.provider:
+        class: Ekreative\RedmineLoginBundle\Security\RedmineUserProvider
+
+    ekreative_redmine_login.redmine:
+        class: GuzzleHttp\Client
+        arguments:
+            -
+                base_uri: %ekreative_redmine_login.redmine%
