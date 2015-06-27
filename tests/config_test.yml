@@ -1,5 +1,7 @@
-security:
+imports:
+    - { resource: parameters.yml }
 
+security:
     providers:
         webservice:
             id: ekreative_redmine_login.provider
@@ -30,3 +32,25 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_REDMINE }
+
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    router:
+        resource: "%kernel.root_dir%/routing.yml"
+        strict_requirements: ~
+    templating:
+        engines: ['twig']
+    validation:      { enable_annotations: true }
+    secret: 'fake_secret'
+    form: ~
+
+monolog:
+    handlers:
+        main:
+            type: console
+
+ekreative_redmine_login:
+    redmine: %redmine%

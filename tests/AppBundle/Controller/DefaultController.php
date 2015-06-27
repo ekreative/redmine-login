@@ -2,18 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Ekreative\RedmineLoginBundle\Form\LoginType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/admin", name="homepage")
+     * @Route("/", name="homepage")
      */
     public function indexAction()
     {
