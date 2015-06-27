@@ -7,10 +7,14 @@ namespace Ekreative\RedmineLoginBundle\Controller;
 
 use Ekreative\RedmineLoginBundle\Form\LoginType;
 use Mcfedr\JsonFormBundle\Controller\JsonController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 
 class LoginController extends JsonController
@@ -52,6 +56,14 @@ class LoginController extends JsonController
     /**
      * @Route("/login")
      * @Method({"POST"})
+     * @ApiDoc(
+     *   description="Get the users api key",
+     *   resource=true,
+     *   input="Ekreative\RedmineLoginBundle\Form\LoginType",
+     *   statusCodes={
+     *     401={"Invalid username or password"}
+     *   }
+     * )
      */
     public function apiLoginAction(Request $request)
     {
@@ -59,7 +71,15 @@ class LoginController extends JsonController
         $this->handleJsonForm($form, $request);
         $data = $form->getData();
 
-        $user = $this->get('ekreative_redmine_login.provider')->getUserForUsernamePassword($data['username'], $data['password']);
+        try {
+            $user = $this->get('ekreative_redmine_login.provider')->getUserForUsernamePassword(
+                $data['username'],
+                $data['password']
+            );
+        }
+        catch (AuthenticationException $e) {
+            throw new UnauthorizedHttpException(null);
+        }
 
         return new JsonResponse([
             'user' => $user

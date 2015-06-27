@@ -24,7 +24,8 @@
         "sensio/generator-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "nelmio/api-doc-bundle": "^2.9"
     },
     "scripts": {
         "post-root-package-install": [

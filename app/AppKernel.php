@@ -15,6 +15,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Ekreative\RedmineLoginBundle\EkreativeRedmineLoginBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

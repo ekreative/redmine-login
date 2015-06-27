@@ -94,3 +94,25 @@ Logged in:
     GET /admin HTTP/1.1
     Host: 127.0.0.1:8000
     X-API-Key: your_api_key
+
+### Api Doc
+
+If you want the api doc to be listed then use [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle/blob/master/Resources/doc/index.md)
+
+#### Kernel
+
+    new Nelmio\ApiDocBundle\NelmioApiDocBundle()
+    
+#### Routing
+    
+    NelmioApiDocBundle:
+        resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+        prefix:   /api/doc
+
+#### Security
+
+Replace the standard `unsec`
+
+    unsec:
+        pattern: ^/(login$|api/doc)
+        security: false

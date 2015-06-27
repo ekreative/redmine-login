@@ -10,7 +10,7 @@ security:
             security: false
 
         unsec:
-            pattern: ^/login$
+            pattern: ^/(login$|api/doc)
             security: false
 
         secured_area:
