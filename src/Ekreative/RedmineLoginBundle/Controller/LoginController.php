@@ -61,6 +61,8 @@ class LoginController extends JsonController
 
         $user = $this->get('ekreative_redmine_login.provider')->getUserForUsernamePassword($data['username'], $data['password']);
 
-        return new JsonResponse($user);
+        return new JsonResponse([
+            'user' => $user
+        ]);
     }
 }

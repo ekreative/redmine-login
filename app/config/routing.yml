@@ -6,5 +6,5 @@ app:
     resource: "@AppBundle/Controller/"
     type: annotation
 
-bundle:
+ekreative_redmine_login:
     resource: "@EkreativeRedmineLoginBundle/Resources/config/routing.yml"
