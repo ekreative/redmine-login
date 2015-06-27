@@ -55,6 +55,14 @@
             - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/, roles: ROLE_REDMINE }
             
+## Security
+
+You can secure your own routes using two roles
+
+* ROLE_REDMINE
+* ROLE_REDMINE_ADMIN
+
+            
 ## Make Request
 
     $projects = json_decode($this->get('ekreative_redmine_login.client_provider')->get($this->getUser())->get('projects.json')->getBody(), true)['projects']
