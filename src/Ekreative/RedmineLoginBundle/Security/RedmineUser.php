@@ -64,18 +64,20 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
      * @param array $data
      * @param bool $isAdmin
      */
-    public function __construct(array $data, $isAdmin)
+    public function __construct(array $data = null, $isAdmin = null)
     {
-        $this->setId($data['id'])
-            ->setUsername($data['login'])
-            ->setFirstName($data['firstname'])
-            ->setLastName($data['lastname'])
-            ->setEmail($data['mail'])
-            ->setCreatedAt(new \DateTime($data['created_on']))
-            ->setLastLoginAt(new \DateTime($data['last_login_on']))
-            ->setApiKey($data['api_key']);
-        if (array_key_exists('status', $data)) {
-            $this->setStatus($data['status']);
+        if ($data) {
+            $this->setId($data['id'])
+                ->setUsername($data['login'])
+                ->setFirstName($data['firstname'])
+                ->setLastName($data['lastname'])
+                ->setEmail($data['mail'])
+                ->setCreatedAt(new \DateTime($data['created_on']))
+                ->setLastLoginAt(new \DateTime($data['last_login_on']))
+                ->setApiKey($data['api_key']);
+            if (array_key_exists('status', $data)) {
+                $this->setStatus($data['status']);
+            }
         }
         $this->setIsAdmin($isAdmin);
     }
