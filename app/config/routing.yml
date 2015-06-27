@@ -1,9 +1,10 @@
+#app:
+#    resource: "@AppBundle/Controller/DefaultController.php"
+#    type:     annotation
+
 app:
-    resource: "@AppBundle/Controller/DefaultController.php"
-    type:     annotation
+    resource: "@AppBundle/Controller/"
+    type: annotation
 
-logout:
-    path: /logout
-
-login_check:
-    path: /login_check
+bundle:
+    resource: "@EkreativeRedmineLoginBundle/Resources/config/routing.yml"

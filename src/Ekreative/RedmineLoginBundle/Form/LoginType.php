@@ -26,6 +26,6 @@ class LoginType extends AbstractType
      */
     public function getName()
     {
-        return 'ekreative_redmine_login';
+        return 'login';
     }
 }

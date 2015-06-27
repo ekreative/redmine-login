@@ -8,7 +8,7 @@ namespace Ekreative\RedmineLoginBundle\Security;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class RedmineUser implements UserInterface, EquatableInterface
+class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializable
 {
     /**
      * @var int
@@ -220,7 +220,7 @@ class RedmineUser implements UserInterface, EquatableInterface
     /**
      * @return boolean
      */
-    public function isStatus()
+    public function getStatus()
     {
         return $this->status;
     }
@@ -262,5 +262,20 @@ class RedmineUser implements UserInterface, EquatableInterface
         }
 
         return $user->getId() == $this->getId();
+    }
+
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUsername(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'email' => $this->getEmail(),
+            'createdAt' => $this->getCreatedAt()->format('c'),
+            'lastLoginAt' => $this->getLastLoginAt()->format('c'),
+            'apiKey' => $this->getApiKey(),
+            'status' => $this->getStatus()
+        ];
     }
 }

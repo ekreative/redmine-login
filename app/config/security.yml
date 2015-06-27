@@ -20,8 +20,8 @@ security:
                 authenticator: ekreative_redmine_login.authenticator
                 check_path:    login_check
                 login_path:    login
-                username_parameter: ekreative_redmine_login[username]
-                password_parameter: ekreative_redmine_login[password]
+                username_parameter: login[username]
+                password_parameter: login[password]
             simple_preauth:
                 authenticator: ekreative_redmine_login.api_authenticator
             logout:

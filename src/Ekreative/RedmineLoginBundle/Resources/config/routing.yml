@@ -1,0 +1,9 @@
+login:
+    resource: "@EkreativeRedmineLoginBundle/Controller/LoginController.php"
+    type: annotation
+
+logout:
+    path: /logout
+
+login_check:
+    path: /login_check
