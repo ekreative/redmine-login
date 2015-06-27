@@ -67,8 +67,10 @@ class RedmineUser implements UserInterface, EquatableInterface
             ->setEmail($data['mail'])
             ->setCreatedAt(new \DateTime($data['created_on']))
             ->setLastLoginAt(new \DateTime($data['last_login_on']))
-            ->setApiKey($data['api_key'])
-            ->setStatus($data['status']);
+            ->setApiKey($data['api_key']);
+        if (array_key_exists('status', $data)) {
+            $this->setStatus($data['status']);
+        }
     }
 
     /**
