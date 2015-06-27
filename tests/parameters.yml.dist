@@ -1,2 +1,6 @@
 parameters:
-    redmine: https://redmine.org
+    redmine: 'https://redmine.org'
+    admin_user: admin
+    admin_pass: pass
+    user_user: user
+    user_pass: pass

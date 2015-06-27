@@ -27,36 +27,39 @@ class RedmineUserProvider implements UserProviderInterface
 
     public function getUserForApiKey($apiKey)
     {
-        try {
-            $response = $this->redmine->get('users/current.json', [
-                'headers' => [
-                    'X-Redmine-API-Key' => $apiKey
-                ]
-            ]);
-
-            if ($response->getStatusCode() != 200) {
-                throw new AuthenticationException('Invalid credentials');
-            }
-
-            return new RedmineUser(json_decode($response->getBody(), true)['user']);
-        }
-        catch (RequestException $e) {
-            throw new AuthenticationException('Invalid credentials');
-        }
+        return $this->getUserWith([
+            'headers' => [
+                'X-Redmine-API-Key' => $apiKey
+            ]
+        ]);
     }
 
     public function getUserForUsernamePassword($username, $password)
     {
+        return $this->getUserWith([
+            'auth' => [$username, $password]
+        ]);
+    }
+
+    private function getUserWith(array $settings)
+    {
         try {
-            $response = $this->redmine->get('users/current.json', [
-                'auth' => [$username, $password]
-            ]);
+            $response = $this->redmine->get('users/current.json', $settings);
+            $data = json_decode($response->getBody(), true);
 
             if ($response->getStatusCode() != 200) {
                 throw new AuthenticationException('Invalid credentials');
             }
 
-            return new RedmineUser(json_decode($response->getBody(), true)['user']);
+            try {
+                $this->redmine->get('groups.json', $settings);
+                $isAdmin = true;
+            }
+            catch (RequestException $e) {
+                $isAdmin = false;
+            }
+
+            return new RedmineUser($data['user'], $isAdmin);
         }
         catch (RequestException $e) {
             throw new AuthenticationException('Invalid credentials');

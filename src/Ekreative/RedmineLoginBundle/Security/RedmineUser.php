@@ -56,9 +56,15 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
     private $status;
 
     /**
-     * @param array $data
+     * @var bool
      */
-    public function __construct(array $data)
+    private $isAdmin;
+
+    /**
+     * @param array $data
+     * @param bool $isAdmin
+     */
+    public function __construct(array $data, $isAdmin)
     {
         $this->setId($data['id'])
             ->setUsername($data['login'])
@@ -71,6 +77,7 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
         if (array_key_exists('status', $data)) {
             $this->setStatus($data['status']);
         }
+        $this->setIsAdmin($isAdmin);
     }
 
     /**
@@ -235,9 +242,31 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param boolean $isAdmin
+     * @return RedmineUser
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+        return $this;
+    }
+
     public function getRoles()
     {
-        return ['ROLE_REDMINE'];
+        $roles = ['ROLE_REDMINE'];
+        if ($this->getIsAdmin()) {
+            $roles[] = 'ROLE_REDMINE_ADMIN';
+        }
+        return $roles;
     }
 
     public function getPassword()
@@ -275,7 +304,8 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
             'createdAt' => $this->getCreatedAt()->format('c'),
             'lastLoginAt' => $this->getLastLoginAt()->format('c'),
             'apiKey' => $this->getApiKey(),
-            'status' => $this->getStatus()
+            'status' => $this->getStatus(),
+            'admin' => $this->getIsAdmin()
         ];
     }
 }
