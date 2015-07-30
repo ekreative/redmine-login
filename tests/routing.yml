@@ -4,7 +4,3 @@ app:
 
 ekreative_redmine_login:
     resource: "@EkreativeRedmineLoginBundle/Resources/config/routing.yml"
-
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc

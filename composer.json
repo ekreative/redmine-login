@@ -23,8 +23,10 @@
     "require-dev": {
         "symfony/monolog-bundle": "~2.4",
         "incenteev/composer-parameter-handler": "~2.0",
-        "nelmio/api-doc-bundle": "^2.9",
         "phpunit/phpunit": "^4.7"
+    },
+    "suggest": {
+        "nelmio/api-doc-bundle": "Provide online documentation of API functions"
     },
     "scripts": {
         "post-install-cmd": [
