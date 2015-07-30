@@ -9,8 +9,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "": "tests/",
-            "SymfonyStandard\\": "app/SymfonyStandard/"
+            "": "tests/"
         }
     },
     "require": {

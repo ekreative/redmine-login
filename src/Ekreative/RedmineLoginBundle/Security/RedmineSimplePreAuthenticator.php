@@ -15,6 +15,18 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
 {
+    /**
+     * @var string
+     */
+    private $apiHeader;
+
+    /**
+     * @param string $apiHeader
+     */
+    public function __construct($apiHeader)
+    {
+        $this->apiHeader = $apiHeader;
+    }
 
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
@@ -51,7 +63,7 @@ class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
 
     public function createToken(Request $request, $providerKey)
     {
-        $apiKey = $request->headers->get('X-API-Key') ?: $request->headers->get('X-Redmine-API-Key');
+        $apiKey = $request->headers->get($this->apiHeader) ?: $request->headers->get('X-Redmine-API-Key');
 
         if (!$apiKey) {
             throw new BadCredentialsException('No API key found');
