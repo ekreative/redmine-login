@@ -17,15 +17,13 @@
         "symfony/symfony": "2.7.*",
         "guzzlehttp/guzzle": "^6.0",
         "mcfedr/json-form": "^3.0",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2"
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "nelmio/api-doc-bundle": "^2.9"
     },
     "require-dev": {
         "symfony/monolog-bundle": "~2.4",
         "incenteev/composer-parameter-handler": "~2.0",
         "phpunit/phpunit": "^4.7"
-    },
-    "suggest": {
-        "nelmio/api-doc-bundle": "Provide online documentation of API functions"
     },
     "scripts": {
         "post-install-cmd": [

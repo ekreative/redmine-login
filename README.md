@@ -11,7 +11,7 @@
 ## Parameters
 
     parameters:
-        redmine: 'https://redmine.org'
+        redmine: 'http://www.redmine.org'
         
 ## Config
 
