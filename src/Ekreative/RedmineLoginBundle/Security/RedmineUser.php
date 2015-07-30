@@ -5,58 +5,83 @@
 
 namespace Ekreative\RedmineLoginBundle\Security;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\MappedSuperclass()
+ */
 class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializable
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
      */
     protected $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
     protected $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
     protected $firstName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
     protected $lastName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
     protected $email;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      */
     protected $createdAt;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $lastLoginAt;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
     protected $apiKey;
 
     /**
      * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $status;
 
     /**
      * @var bool
+     *
+     * @ORM\Column(type="boolean")
      */
     protected $isAdmin;
 
