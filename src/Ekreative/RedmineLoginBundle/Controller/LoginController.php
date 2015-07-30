@@ -10,6 +10,7 @@ use Mcfedr\JsonFormBundle\Controller\JsonController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -21,6 +22,7 @@ class LoginController extends JsonController
     /**
      * @Route("/login", name="login")
      * @Method({"GET"})
+     * @Template()
      * @param Request $request
      * @return array
      */
@@ -45,11 +47,11 @@ class LoginController extends JsonController
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
-        return $this->render('@EkreativeRedmineLogin/Login/login.html.twig', [
+        return [
             'last_username' => $session->get(Security::LAST_USERNAME),
             'error' => $error,
             'form' => $form->createView()
-        ]);
+        ];
     }
 
     /**
