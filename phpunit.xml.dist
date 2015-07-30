@@ -4,6 +4,7 @@
     <testsuites>
         <testsuite name="Redmine Login">
             <directory>tests/Ekreative/RedmineLoginBundle/</directory>
+            <directory>tests/AppBundle/Tests/</directory>
         </testsuite>
     </testsuites>
 
