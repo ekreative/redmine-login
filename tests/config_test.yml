@@ -54,3 +54,6 @@ monolog:
 
 ekreative_redmine_login:
     redmine: %redmine%
+
+parameters:
+    ekreative_redmine_login.user.class: AppBundle\Security\CustomUser

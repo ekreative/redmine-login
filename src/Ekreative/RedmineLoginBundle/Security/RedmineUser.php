@@ -13,52 +13,52 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var string
      */
-    private $email;
+    protected $email;
 
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
      */
-    private $lastLoginAt;
+    protected $lastLoginAt;
 
     /**
      * @var string
      */
-    private $apiKey;
+    protected $apiKey;
 
     /**
      * @var bool
      */
-    private $status;
+    protected $status;
 
     /**
      * @var bool
      */
-    private $isAdmin;
+    protected $isAdmin;
 
     /**
      * @param array $data

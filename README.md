@@ -103,6 +103,11 @@ Logged in:
     Host: 127.0.0.1:8000
     X-API-Key: your_api_key
 
+## Custom user class
+
+If you want to use a custom user class then its very easy! Just override the parameter 
+`ekreative_redmine_login.user.class` with the name of your own class that extends `RedmineUser`.
+
 ### Api Doc
 
 If you want the api doc to be listed then use [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle/blob/master/Resources/doc/index.md)
