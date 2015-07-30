@@ -51,7 +51,7 @@ class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
 
     public function createToken(Request $request, $providerKey)
     {
-        $apiKey = $request->headers->get('X-API-Key');
+        $apiKey = $request->headers->get('X-API-Key') ?: $request->headers->get('X-Redmine-API-Key');
 
         if (!$apiKey) {
             throw new BadCredentialsException('No API key found');
