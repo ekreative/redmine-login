@@ -1,5 +1,6 @@
 {
     "name": "ekreative/redmine_login",
+    "description": "Login to symfony using redmine as user provider",
     "license": "MIT",
     "type": "symfony-bundle",
     "autoload": {
