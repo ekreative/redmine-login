@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('ekreative_redmine_login');
         $rootNode->children()
             ->scalarNode('redmine')->end()
+            ->scalarNode('api_header')->defaultValue('X-API-Key')->end()
         ->end();
 
         // Here you should define the parameters that are allowed to

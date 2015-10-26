@@ -26,5 +26,6 @@ class EkreativeRedmineLoginExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('ekreative_redmine_login.redmine', $config['redmine']);
+        $container->setParameter('ekreative_redmine_login.api_header', $config['api_header']);
     }
 }

@@ -3,7 +3,7 @@
  * Created by mcfedr on 27/06/15 11:58
  */
 
-namespace Ekreative\RedmineLoginBundle\Form;
+namespace Ekreative\RedmineLoginBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

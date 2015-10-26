@@ -11,7 +11,7 @@
 ## Parameters
 
     parameters:
-        redmine: 'https://redmine.org'
+        redmine: 'http://www.redmine.org'
         
 ## Config
 
@@ -102,6 +102,11 @@ Logged in:
     GET /admin HTTP/1.1
     Host: 127.0.0.1:8000
     X-API-Key: your_api_key
+
+## Custom user class
+
+If you want to use a custom user class then its very easy! Just override the parameter 
+`ekreative_redmine_login.user.class` with the name of your own class that extends `RedmineUser`.
 
 ### Api Doc
 

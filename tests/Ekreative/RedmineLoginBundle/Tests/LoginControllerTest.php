@@ -5,6 +5,7 @@
 
 namespace Ekreative\RedmineLoginBundle\Tests;
 
+use AppBundle\Security\CustomUser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LoginControllerTest extends WebTestCase
@@ -41,5 +42,18 @@ class LoginControllerTest extends WebTestCase
 
         $data = json_decode($response->getContent(), true);
         $this->assertTrue($data['user']['admin']);
+    }
+
+    public function testCustomUser()
+    {
+        $client = $this->createClient();
+        $client->request('GET', 'login');
+        $client->request('POST', '/login_check', [
+            'login' => [
+                'username' => $client->getContainer()->getParameter('user_user'),
+                'password' => $client->getContainer()->getParameter('user_pass')
+            ]
+        ]);
+        $this->assertInstanceOf(CustomUser::class, $client->getContainer()->get('security.token_storage')->getToken()->getUser());
     }
 }

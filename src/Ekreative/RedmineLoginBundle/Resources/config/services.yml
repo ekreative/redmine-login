@@ -1,5 +1,8 @@
 parameters:
     ekreative_redmine_login.redmine: ~
+    ekreative_redmine_login.api_header: 'X-API-Key'
+    ekreative_redmine_login.user_factory.class: 'Ekreative\RedmineLoginBundle\Security\RedmineUserFactory'
+    ekreative_redmine_login.user.class: 'Ekreative\RedmineLoginBundle\Security\RedmineUser'
 
 services:
     ekreative_redmine_login.client_provider:
@@ -12,14 +15,22 @@ services:
 
     ekreative_redmine_login.api_authenticator:
         class: Ekreative\RedmineLoginBundle\Security\RedmineSimplePreAuthenticator
+        arguments:
+            - %ekreative_redmine_login.api_header%
 
     ekreative_redmine_login.provider:
         class: Ekreative\RedmineLoginBundle\Security\RedmineUserProvider
         arguments:
             - @ekreative_redmine_login.redmine
+            - @ekreative_redmine_login.user_factory
 
     ekreative_redmine_login.redmine:
         class: GuzzleHttp\Client
         arguments:
             -
                 base_uri: %ekreative_redmine_login.redmine%
+
+    ekreative_redmine_login.user_factory:
+        class: %ekreative_redmine_login.user_factory.class%
+        arguments:
+            - %ekreative_redmine_login.user.class%

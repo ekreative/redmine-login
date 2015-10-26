@@ -20,11 +20,21 @@ class RedmineUserProvider implements UserProviderInterface
      */
     private $redmine;
 
-    public function __construct(Client $redmine)
+    /**
+     * @var RedmineUserFactory
+     */
+    private $userFactory;
+
+    public function __construct(Client $redmine, RedmineUserFactory $userFactory)
     {
         $this->redmine = $redmine;
+        $this->userFactory = $userFactory;
     }
 
+    /**
+     * @param string $apiKey
+     * @return RedmineUser
+     */
     public function getUserForApiKey($apiKey)
     {
         return $this->getUserWith([
@@ -34,6 +44,11 @@ class RedmineUserProvider implements UserProviderInterface
         ]);
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     * @return RedmineUser
+     */
     public function getUserForUsernamePassword($username, $password)
     {
         return $this->getUserWith([
@@ -41,6 +56,10 @@ class RedmineUserProvider implements UserProviderInterface
         ]);
     }
 
+    /**
+     * @param array $settings
+     * @return RedmineUser
+     */
     private function getUserWith(array $settings)
     {
         try {
@@ -59,7 +78,7 @@ class RedmineUserProvider implements UserProviderInterface
                 $isAdmin = false;
             }
 
-            return new RedmineUser($data['user'], $isAdmin);
+            return $this->userFactory->get($data['user'], $isAdmin);
         }
         catch (RequestException $e) {
             throw new AuthenticationException('Invalid credentials');
@@ -86,6 +105,6 @@ class RedmineUserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class == RedmineUser::class;
+        return is_subclass_of($class, RedmineUser::class);
     }
 }

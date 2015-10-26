@@ -8,9 +8,17 @@ class DefaultControllerTest extends WebTestCase
 {
     public function testIndex()
     {
-        $client = static::createClient();
+        $client = $this->createClient();
 
-        $crawler = $client->request('GET', '/app/example');
+        $client->request('GET', 'login');
+        $client->request('POST', '/login_check', [
+            'login' => [
+                'username' => $client->getContainer()->getParameter('user_user'),
+                'password' => $client->getContainer()->getParameter('user_pass')
+            ]
+        ]);
+
+        $crawler = $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($crawler->filter('html:contains("Homepage")')->count() > 0);

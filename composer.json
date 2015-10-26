@@ -1,5 +1,6 @@
 {
     "name": "ekreative/redmine_login",
+    "description": "Login to symfony using redmine as user provider",
     "license": "MIT",
     "type": "symfony-bundle",
     "autoload": {
@@ -9,8 +10,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "": "tests/",
-            "SymfonyStandard\\": "app/SymfonyStandard/"
+            "": "tests/"
         }
     },
     "require": {
@@ -18,12 +18,12 @@
         "symfony/symfony": "2.7.*",
         "guzzlehttp/guzzle": "^6.0",
         "mcfedr/json-form": "^3.0",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2"
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "nelmio/api-doc-bundle": "^2.9"
     },
     "require-dev": {
         "symfony/monolog-bundle": "~2.4",
         "incenteev/composer-parameter-handler": "~2.0",
-        "nelmio/api-doc-bundle": "^2.9",
         "phpunit/phpunit": "^4.7"
     },
     "scripts": {

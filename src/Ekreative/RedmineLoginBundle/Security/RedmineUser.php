@@ -5,60 +5,85 @@
 
 namespace Ekreative\RedmineLoginBundle\Security;
 
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\MappedSuperclass()
+ */
 class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializable
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $lastLoginAt;
+    protected $lastLoginAt;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
-    private $apiKey;
+    protected $apiKey;
 
     /**
      * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $status;
+    protected $status;
 
     /**
      * @var bool
+     *
+     * @ORM\Column(type="boolean")
      */
-    private $isAdmin;
+    protected $admin;
 
     /**
      * @param array $data
@@ -79,7 +104,7 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
                 $this->setStatus($data['status']);
             }
         }
-        $this->setIsAdmin($isAdmin);
+        $this->setAdmin($isAdmin);
     }
 
     /**
@@ -247,25 +272,25 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
     /**
      * @return boolean
      */
-    public function getIsAdmin()
+    public function isAdmin()
     {
-        return $this->isAdmin;
+        return $this->admin;
     }
 
     /**
      * @param boolean $isAdmin
      * @return RedmineUser
      */
-    public function setIsAdmin($isAdmin)
+    public function setAdmin($isAdmin)
     {
-        $this->isAdmin = $isAdmin;
+        $this->admin = $isAdmin;
         return $this;
     }
 
     public function getRoles()
     {
         $roles = ['ROLE_REDMINE'];
-        if ($this->getIsAdmin()) {
+        if ($this->isAdmin()) {
             $roles[] = 'ROLE_REDMINE_ADMIN';
         }
         return $roles;
@@ -307,7 +332,7 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
             'lastLoginAt' => $this->getLastLoginAt()->format('c'),
             'apiKey' => $this->getApiKey(),
             'status' => $this->getStatus(),
-            'admin' => $this->getIsAdmin()
+            'admin' => $this->isAdmin()
         ];
     }
 }
