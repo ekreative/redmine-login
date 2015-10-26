@@ -36,7 +36,14 @@
     },
     "extra": {
         "incenteev-parameters": {
-            "file": "tests/parameters.yml"
+            "file": "tests/parameters.yml",
+            "env-map": {
+                "redmine": "SYMFONY__REDMINE",
+                "admin_user": "SYMFONY__ADMIN_USER",
+                "admin_pass": "SYMFONY__ADMIN_PASS",
+                "user_user": "SYMFONY__USER_USER",
+                "user_pass": "SYMFONY__USER_PASS"
+            }
         }
     }
 }
