@@ -24,7 +24,7 @@
     "require-dev": {
         "symfony/monolog-bundle": "~2.4",
         "incenteev/composer-parameter-handler": "~2.0",
-        "phpunit/phpunit": "^5.0.8"
+        "phpunit/phpunit": "^4.8.9"
     },
     "scripts": {
         "post-install-cmd": [
