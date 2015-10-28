@@ -1,5 +1,10 @@
 # Redmine Login
 
+[![Latest Stable Version](https://poser.pugx.org/ekreative/redmine_login/v/stable.png)](https://packagist.org/packages/ekreative/redmine_login)
+[![License](https://poser.pugx.org/ekreative/redmine_login/license.png)](https://packagist.org/packages/ekreative/redmine_login)
+[![Build Status](https://travis-ci.org/ekreative/redmine-login.svg?branch=master)](https://travis-ci.org/ekreative/redmine-login)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/eaa49647-3e99-4050-92c9-c39ada6c636f/mini.png)](https://insight.sensiolabs.com/projects/eaa49647-3e99-4050-92c9-c39ada6c636f)
+
 ## Install
 
     composer require ekreative/redmine_login
