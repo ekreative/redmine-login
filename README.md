@@ -113,6 +113,8 @@ Logged in:
 If you want to use a custom user class then its very easy! Just override the parameter 
 `ekreative_redmine_login.user.class` with the name of your own class that extends `RedmineUser`.
 
+`RedmineUser` contains all the attotations for use with Doctrine, so its super simple to store users in the database.
+
 ### Api Doc
 
 If you want the api doc to be listed then use [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle/blob/master/Resources/doc/index.md)
