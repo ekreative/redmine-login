@@ -6,11 +6,10 @@
 namespace Ekreative\RedmineLoginBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\SimplePreAuthenticatorInterface;
+use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
@@ -63,7 +62,7 @@ class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
 
     public function createToken(Request $request, $providerKey)
     {
-        $apiKey = $request->headers->get($this->apiHeader) ?: $request->headers->get('X-Redmine-API-Key');
+        $apiKey = $request->headers->get($this->apiHeader ?: 'X-Redmine-API-Key');
 
         if (!$apiKey) {
             return null;

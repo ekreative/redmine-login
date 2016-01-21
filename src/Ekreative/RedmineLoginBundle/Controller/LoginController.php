@@ -23,8 +23,6 @@ class LoginController extends JsonController
      * @Route("/login", name="login")
      * @Method({"GET"})
      * @Template()
-     * @param Request $request
-     * @return array
      */
     public function loginAction(Request $request)
     {

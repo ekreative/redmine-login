@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.5",
-        "symfony/symfony": "^2.7.5",
+        "symfony/symfony": "^2.8.0",
         "guzzlehttp/guzzle": "^6.1.0",
         "mcfedr/json-form": "^3.1.0",
         "sensio/framework-extra-bundle": "^3.0.2",
@@ -23,27 +23,6 @@
     },
     "require-dev": {
         "symfony/monolog-bundle": "~2.4",
-        "incenteev/composer-parameter-handler": "~2.0",
         "phpunit/phpunit": "^4.8.9"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ]
-    },
-    "extra": {
-        "incenteev-parameters": {
-            "file": "tests/parameters.yml",
-            "env-map": {
-                "redmine": "SYMFONY__REDMINE",
-                "admin_user": "SYMFONY__ADMIN_USER",
-                "admin_pass": "SYMFONY__ADMIN_PASS",
-                "user_user": "SYMFONY__USER_USER",
-                "user_pass": "SYMFONY__USER_PASS"
-            }
-        }
     }
 }

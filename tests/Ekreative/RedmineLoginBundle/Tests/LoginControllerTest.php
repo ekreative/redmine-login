@@ -6,54 +6,130 @@
 namespace Ekreative\RedmineLoginBundle\Tests;
 
 use AppBundle\Security\CustomUser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class LoginControllerTest extends WebTestCase
+class LoginControllerTest extends RedmineTestCase
 {
-    public function testLogin()
+    public function testApiLogin()
     {
-        $client = $this->createClient();
-        $client->request('POST', '/login', [], [], [], json_encode([
+        $this->setUpUserMock();
+        $this->client->request('POST', '/login', [], [], [], json_encode([
             'login' => [
-                'username' => $client->getContainer()->getParameter('user_user'),
-                'password' => $client->getContainer()->getParameter('user_pass')
+                'username' => 'user',
+                'password' => 'pass'
             ]
         ]));
 
-        $response = $client->getResponse();
-        $this->assertEquals($response->getStatusCode(), 200);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
 
         $data = json_decode($response->getContent(), true);
         $this->assertFalse($data['user']['admin']);
     }
 
-    public function testAdminLogin()
+    public function testApiAdminLogin()
     {
-        $client = $this->createClient();
-        $client->request('POST', '/login', [], [], [], json_encode([
+        $this->setUpAdminMock();
+        $this->client->request('POST', '/login', [], [], [], json_encode([
             'login' => [
-                'username' => $client->getContainer()->getParameter('admin_user'),
-                'password' => $client->getContainer()->getParameter('admin_pass')
+                'username' => 'admin',
+                'password' => 'pass'
             ]
         ]));
 
-        $response = $client->getResponse();
-        $this->assertEquals($response->getStatusCode(), 200);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
 
         $data = json_decode($response->getContent(), true);
         $this->assertTrue($data['user']['admin']);
     }
 
-    public function testCustomUser()
+    public function testApiFailLogin()
     {
-        $client = $this->createClient();
-        $client->request('GET', 'login');
-        $client->request('POST', '/login_check', [
+        $this->setUpNoUserMock();
+        $this->client->request('POST', '/login', [], [], [], json_encode([
             'login' => [
-                'username' => $client->getContainer()->getParameter('user_user'),
-                'password' => $client->getContainer()->getParameter('user_pass')
+                'username' => 'user',
+                'password' => 'pass'
+            ]
+        ]));
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(401, $response->getStatusCode());
+    }
+
+    public function testApiKeyLogin()
+    {
+        $this->setUpUserMock();
+
+        $this->client->request('GET', '/', [], [], ['HTTP_X-API-Key' => 'key']);
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertInstanceOf(CustomUser::class, $this->client->getContainer()->get('security.token_storage')->getToken()->getUser());
+        $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE'));
+        $this->assertFalse($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE_ADMIN'));
+    }
+
+    public function testApiKeyAdminLogin()
+    {
+        $this->setUpAdminMock();
+
+        $this->client->request('GET', '/', [], [], ['HTTP_X-API-Key' => 'key']);
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertInstanceOf(CustomUser::class, $this->client->getContainer()->get('security.token_storage')->getToken()->getUser());
+        $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE'));
+        $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE_ADMIN'));
+    }
+
+    public function testFormLoginUser()
+    {
+        $this->setUpUserMock();
+        $this->client->request('POST', '/login_check', [
+            'login' => [
+                'username' => 'user',
+                'password' => 'pass'
             ]
         ]);
-        $this->assertInstanceOf(CustomUser::class, $client->getContainer()->get('security.token_storage')->getToken()->getUser());
+        $response = $this->client->getResponse();
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('http://localhost/', $response->headers->get('location'));
+        $this->assertInstanceOf(CustomUser::class, $this->client->getContainer()->get('security.token_storage')->getToken()->getUser());
+        $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE'));
+        $this->assertFalse($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE_ADMIN'));
+    }
+
+    public function testFormLoginAdmin()
+    {
+        $this->setUpAdminMock();
+        $this->client->request('POST', '/login_check', [
+            'login' => [
+                'username' => 'user',
+                'password' => 'pass'
+            ]
+        ]);
+        $response = $this->client->getResponse();
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('http://localhost/', $response->headers->get('location'));
+        $this->assertInstanceOf(CustomUser::class, $this->client->getContainer()->get('security.token_storage')->getToken()->getUser());
+        $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE'));
+        $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE_ADMIN'));
+    }
+
+    public function testFormLoginNoUser()
+    {
+        $this->setUpNoUserMock();
+        $this->client->request('POST', '/login_check', [
+            'login' => [
+                'username' => 'user',
+                'password' => 'pass'
+            ]
+        ]);
+        $response = $this->client->getResponse();
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('http://localhost/login', $response->headers->get('location'));
     }
 }

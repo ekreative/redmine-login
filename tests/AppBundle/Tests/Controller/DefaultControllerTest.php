@@ -2,25 +2,23 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ekreative\RedmineLoginBundle\Tests\RedmineTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends RedmineTestCase
 {
     public function testIndex()
     {
-        $client = $this->createClient();
-
-        $client->request('GET', 'login');
-        $client->request('POST', '/login_check', [
+        $this->setUpUserMock();
+        $this->client->disableReboot();
+        $this->client->request('POST', '/login_check', [
             'login' => [
-                'username' => $client->getContainer()->getParameter('user_user'),
-                'password' => $client->getContainer()->getParameter('user_pass')
+                'username' => 'user',
+                'password' => 'pass'
             ]
         ]);
+        $crawler = $this->client->request('GET', '/');
 
-        $crawler = $client->request('GET', '/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($crawler->filter('html:contains("Homepage")')->count() > 0);
     }
 }

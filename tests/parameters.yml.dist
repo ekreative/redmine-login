@@ -1,6 +1,0 @@
-parameters:
-    redmine: 'http://www.redmine.org'
-    admin_user: admin
-    admin_pass: pass
-    user_user: user
-    user_pass: pass
