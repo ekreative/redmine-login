@@ -4,6 +4,7 @@
 [![License](https://poser.pugx.org/ekreative/redmine_login/license.png)](https://packagist.org/packages/ekreative/redmine_login)
 [![Build Status](https://travis-ci.org/ekreative/redmine-login.svg?branch=master)](https://travis-ci.org/ekreative/redmine-login)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b24d231d-e696-44e3-92d5-3e8e5980dc04/mini.png)](https://insight.sensiolabs.com/projects/b24d231d-e696-44e3-92d5-3e8e5980dc04)
+[![Coverage Status](https://coveralls.io/repos/github/ekreative/redmine-login/badge.svg?branch=master)](https://coveralls.io/github/ekreative/redmine-login?branch=master)
 
 ## Install
 
