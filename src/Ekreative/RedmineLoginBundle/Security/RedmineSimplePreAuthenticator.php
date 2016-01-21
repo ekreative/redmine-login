@@ -66,7 +66,7 @@ class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
         $apiKey = $request->headers->get($this->apiHeader) ?: $request->headers->get('X-Redmine-API-Key');
 
         if (!$apiKey) {
-            throw new BadCredentialsException('No API key found');
+            return null;
         }
 
         return new PreAuthenticatedToken(
