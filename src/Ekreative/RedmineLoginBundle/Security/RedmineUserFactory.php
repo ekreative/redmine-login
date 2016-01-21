@@ -5,6 +5,9 @@
 
 namespace Ekreative\RedmineLoginBundle\Security;
 
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 class RedmineUserFactory implements RedmineUserFactoryInterface
 {
     /**
@@ -25,8 +28,24 @@ class RedmineUserFactory implements RedmineUserFactoryInterface
      * @param bool $isAdmin
      * @return RedmineUser
      */
-    public function get(array $data, $isAdmin)
+    public function loadUserByData(array $data, $isAdmin)
     {
         return new $this->class($data, $isAdmin);
+    }
+
+    public function refreshUser(UserInterface $user)
+    {
+        if (!$user instanceof RedmineUser) {
+            throw new UnsupportedUserException(
+                sprintf('Instances of "%s" are not supported.', get_class($user))
+            );
+        }
+
+        return $user;
+    }
+
+    public function supportsClass($class)
+    {
+        return is_subclass_of($class, $this->class);
     }
 }

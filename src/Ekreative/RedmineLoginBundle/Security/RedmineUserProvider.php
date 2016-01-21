@@ -78,7 +78,7 @@ class RedmineUserProvider implements UserProviderInterface
                 $isAdmin = false;
             }
 
-            return $this->userFactory->get($data['user'], $isAdmin);
+            return $this->userFactory->loadUserByData($data['user'], $isAdmin);
         }
         catch (RequestException $e) {
             throw new AuthenticationException('Invalid credentials');
@@ -94,17 +94,11 @@ class RedmineUserProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof RedmineUser) {
-            throw new UnsupportedUserException(
-                sprintf('Instances of "%s" are not supported.', get_class($user))
-            );
-        }
-
-        return $user;
+        return $this->userFactory->refreshUser($user);
     }
 
     public function supportsClass($class)
     {
-        return is_subclass_of($class, RedmineUser::class);
+        return $this->userFactory->supportsClass($class);
     }
 }
