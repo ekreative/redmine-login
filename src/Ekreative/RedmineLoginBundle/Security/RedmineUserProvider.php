@@ -21,11 +21,11 @@ class RedmineUserProvider implements UserProviderInterface
     private $redmine;
 
     /**
-     * @var RedmineUserFactory
+     * @var RedmineUserFactoryInterface
      */
     private $userFactory;
 
-    public function __construct(Client $redmine, RedmineUserFactory $userFactory)
+    public function __construct(Client $redmine, RedmineUserFactoryInterface $userFactory)
     {
         $this->redmine = $redmine;
         $this->userFactory = $userFactory;

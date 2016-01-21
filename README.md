@@ -111,10 +111,15 @@ Logged in:
 
 ## Custom user class
 
-If you want to use a custom user class then its very easy! Just override the parameter 
-`ekreative_redmine_login.user.class` with the name of your own class that extends `RedmineUser`.
+If you want to use a custom user class then its very easy! There are two ways
 
-`RedmineUser` contains all the attotations for use with Doctrine, so its super simple to store users in the database.
+* Either override the parameter `ekreative_redmine_login.user.class` with the name of your own class that extends
+`RedmineUser`.
+
+* Or override the service `ekreative_redmine_login.user_factory` with a service that implements
+`RedmineUserFactoryInterface`. You will want to do this if you are using Doctrine.
+
+`RedmineUser` contains all the annotations for use with Doctrine, so its super simple to store users in the database.
 
 ### Api Doc
 

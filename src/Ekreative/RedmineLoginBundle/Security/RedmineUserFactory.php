@@ -5,7 +5,7 @@
 
 namespace Ekreative\RedmineLoginBundle\Security;
 
-class RedmineUserFactory
+class RedmineUserFactory implements RedmineUserFactoryInterface
 {
     /**
      * @var string
@@ -25,7 +25,7 @@ class RedmineUserFactory
      * @param bool $isAdmin
      * @return RedmineUser
      */
-    public function get($data, $isAdmin)
+    public function get(array $data, $isAdmin)
     {
         return new $this->class($data, $isAdmin);
     }
