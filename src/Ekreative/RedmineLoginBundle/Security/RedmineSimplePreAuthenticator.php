@@ -6,13 +6,15 @@
 namespace Ekreative\RedmineLoginBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
+class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
     /**
      * @var string
@@ -73,5 +75,10 @@ class RedmineSimplePreAuthenticator implements SimplePreAuthenticatorInterface
             $apiKey,
             $providerKey
         );
+    }
+
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    {
+        return new Response('Incorrect Api Key', 403);
     }
 }

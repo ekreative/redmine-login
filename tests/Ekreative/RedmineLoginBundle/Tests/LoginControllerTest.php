@@ -85,6 +85,31 @@ class LoginControllerTest extends RedmineTestCase
         $this->assertTrue($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE_ADMIN'));
     }
 
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException
+     */
+    public function testApiNoKeyLogin()
+    {
+        $this->client->request('GET', '/', [], [], ['HTTP_X-API-Key' => 'key']);
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(403, $response->getStatusCode());
+
+        $this->assertNull($this->client->getContainer()->get('security.token_storage')->getToken());
+        $this->assertFalse($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE'));
+    }
+
+    public function testNothingRedirectLogin()
+    {
+        $this->client->request('GET', '/');
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('http://localhost/login', $response->headers->get('location'));
+
+        $this->assertFalse($this->client->getContainer()->get('security.authorization_checker')->isGranted('ROLE_REDMINE'));
+    }
+
     public function testFormLoginUser()
     {
         $this->setUpUserMock();
