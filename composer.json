@@ -1,11 +1,11 @@
 {
-    "name": "VaShu/redmine_login",
+    "name": "vashu/redmine_login",
     "description": "Login to symfony using redmine as user provider",
     "license": "MIT",
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
-            "VaShu\\RedmineLoginBundle\\": "src/Ekreative/RedmineLoginBundle/"
+            "vashu\\RedmineLoginBundle\\": "src/Ekreative/RedmineLoginBundle/"
         }
     },
     "autoload-dev": {
