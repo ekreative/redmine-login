@@ -30,7 +30,7 @@ class LoginController extends JsonController
         $session = $request->getSession();
 
         $form = $this->createForm(
-            new LoginType(),
+            LoginType::class,
             ['username' => $session->get(Security::LAST_USERNAME)],
             ['action' => $this->generateUrl('login_check')]
         );
