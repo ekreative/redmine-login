@@ -5,7 +5,7 @@
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
-            "vashu\\RedmineLoginBundle\\": "src/Ekreative/RedmineLoginBundle/"
+            "Ekreative\\RedmineLoginBundle\\": "src/Ekreative/RedmineLoginBundle/"
         }
     },
     "autoload-dev": {
