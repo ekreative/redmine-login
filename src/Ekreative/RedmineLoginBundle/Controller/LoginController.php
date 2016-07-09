@@ -67,7 +67,7 @@ class LoginController extends JsonController
      */
     public function apiLoginAction(Request $request)
     {
-        $form = $this->createForm(new LoginType());
+        $form = $this->createForm(LoginType::class);
         $this->handleJsonForm($form, $request);
         $data = $form->getData();
 
