@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class LoginController extends JsonController
 {
@@ -28,12 +29,12 @@ class LoginController extends JsonController
     {
         $session = $request->getSession();
 
-        $form = $this->createForm(new LoginType(), [
-            'username' => $session->get(Security::LAST_USERNAME)
-        ], [
-            'action' => $this->generateUrl('login_check')
-        ]);
-        $form->add('submit', 'submit', ['label' => 'Sign In']);
+        $form = $this->createForm(
+            new LoginType(),
+            ['username' => $session->get(Security::LAST_USERNAME)],
+            ['action' => $this->generateUrl('login_check')]
+        );
+        $form->add('submit', SubmitType::class, ['label' => 'Sign In']);
 
         // get the login error if there is one
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
