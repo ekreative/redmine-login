@@ -1,5 +1,5 @@
 {
-    "name": "vashu/redmine_login",
+    "name": "ekreative/redmine_login",
     "description": "Login to symfony using redmine as user provider",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.6",
-        "symfony/symfony": "^3.0.0",
+        "symfony/symfony": "^2.8|^3.0",
         "guzzlehttp/guzzle": "^6.2",
         "mcfedr/json-form": "^3.2.0",
         "sensio/framework-extra-bundle": "^3.0.2",
