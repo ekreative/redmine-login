@@ -26,6 +26,24 @@ class LoginControllerTest extends RedmineTestCase
         $this->assertFalse($data['user']['admin']);
     }
 
+    public function testHiddenEmailApiLogin()
+    {
+        $this->setUpUserHiddenEmailMock();
+        $this->client->request('POST', '/login', [], [], [], json_encode([
+            'login' => [
+                'username' => 'user',
+                'password' => 'pass'
+            ]
+        ]));
+
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $data = json_decode($response->getContent(), true);
+        $this->assertFalse($data['user']['admin']);
+        $this->assertEquals($data['user']['email'], null);
+    }
+
     public function testApiAdminLogin()
     {
         $this->setUpAdminMock();
