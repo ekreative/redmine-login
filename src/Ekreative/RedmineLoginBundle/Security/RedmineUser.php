@@ -46,7 +46,7 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $email;
 
@@ -103,10 +103,12 @@ class RedmineUser implements UserInterface, EquatableInterface, \JsonSerializabl
         $this->setUsername($data['login'])
             ->setFirstName($data['firstname'])
             ->setLastName($data['lastname'])
-            ->setEmail($data['mail'])
             ->setCreatedAt(new \DateTime($data['created_on']))
             ->setLastLoginAt(new \DateTime($data['last_login_on']))
             ->setApiKey($data['api_key']);
+        if (array_key_exists('mail', $data)) {
+            $this->setEmail($data['mail']);
+        }
         if (array_key_exists('status', $data)) {
             $this->setStatus($data['status']);
         }
