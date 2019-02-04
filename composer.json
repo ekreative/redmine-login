@@ -17,7 +17,7 @@
         "php": ">=7.1",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.2",
-        "mcfedr/json-form": "^3.2.0",
+        "mcfedr/json-form": "^4.4",
         "symfony/framework-bundle": "^3.0|^4.0",
         "symfony/form": "^3.0|^4.0"
     },

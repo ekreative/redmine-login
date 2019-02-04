@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cf25a2b4d010e425b047064c0657b0c",
+    "content-hash": "22e440c05346eb400078994978396320",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -888,27 +888,30 @@
         },
         {
             "name": "mcfedr/json-form",
-            "version": "3.2.2",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcfedr/json-form.git",
-                "reference": "8b9311567fb7f876579933a8f3a9894e40b889b6"
+                "reference": "92256314fb26db8a30c46f8a370ae0ecdb56dad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcfedr/json-form/zipball/8b9311567fb7f876579933a8f3a9894e40b889b6",
-                "reference": "8b9311567fb7f876579933a8f3a9894e40b889b6",
+                "url": "https://api.github.com/repos/mcfedr/json-form/zipball/92256314fb26db8a30c46f8a370ae0ecdb56dad4",
+                "reference": "92256314fb26db8a30c46f8a370ae0ecdb56dad4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5",
-                "symfony/symfony": "~2.8|~3.0"
+                "symfony/form": "^3.0|^4.0",
+                "symfony/framework-bundle": "^3.0|^4.0",
+                "symfony/validator": "^3.0|^4.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.1",
-                "phpunit/phpunit": "~4.3",
-                "sensio/framework-extra-bundle": "~3.0",
-                "symfony/monolog-bundle": "~2.3|^3.0"
+                "phpunit/phpunit": "^4.0|^5.3",
+                "sensio/framework-extra-bundle": "^3.0|^4.0|^5.0",
+                "symfony/browser-kit": "^3.0|^4.0",
+                "symfony/monolog-bundle": "^3.0|^4.0"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -932,7 +935,7 @@
                 "json",
                 "symfony"
             ],
-            "time": "2017-02-14T14:37:07+00:00"
+            "time": "2018-07-24T07:55:18+00:00"
         },
         {
             "name": "paragonie/random_compat",
