@@ -13,7 +13,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new AppBundle\AppBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+//            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Ekreative\RedmineLoginBundle\EkreativeRedmineLoginBundle()
         );
 

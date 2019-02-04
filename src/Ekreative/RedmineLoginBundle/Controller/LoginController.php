@@ -7,12 +7,10 @@ namespace Ekreative\RedmineLoginBundle\Controller;
 
 use Ekreative\RedmineLoginBundle\Form\Type\LoginType;
 use Mcfedr\JsonFormBundle\Controller\JsonController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,9 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class LoginController extends JsonController
 {
     /**
-     * @Route("/login", name="login")
-     * @Method({"GET"})
-     * @Template()
+     * @Route("/login", name="login", methods={"GET"})
      */
     public function loginAction(Request $request)
     {
@@ -45,16 +41,15 @@ class LoginController extends JsonController
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
-        return [
+        return $this->render('@EkreativeRedmineLogin/Login/login.html.twig', [
             'last_username' => $session->get(Security::LAST_USERNAME),
             'error' => $error,
             'form' => $form->createView()
-        ];
+        ]);
     }
 
     /**
-     * @Route("/login")
-     * @Method({"POST"})
+     * @Route("/login", methods={"POST"})
      */
     public function apiLoginAction(Request $request)
     {
