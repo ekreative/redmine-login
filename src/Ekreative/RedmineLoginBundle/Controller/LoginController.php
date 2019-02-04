@@ -7,7 +7,6 @@ namespace Ekreative\RedmineLoginBundle\Controller;
 
 use Ekreative\RedmineLoginBundle\Form\Type\LoginType;
 use Mcfedr\JsonFormBundle\Controller\JsonController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -56,14 +55,6 @@ class LoginController extends JsonController
     /**
      * @Route("/login")
      * @Method({"POST"})
-     * @ApiDoc(
-     *   description="Get the users api key",
-     *   resource=true,
-     *   input="Ekreative\RedmineLoginBundle\Form\Type\LoginType",
-     *   statusCodes={
-     *     401={"Invalid username or password"}
-     *   }
-     * )
      */
     public function apiLoginAction(Request $request)
     {

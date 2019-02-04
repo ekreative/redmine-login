@@ -7,6 +7,7 @@ parameters:
 services:
     ekreative_redmine_login.client_provider:
         class: Ekreative\RedmineLoginBundle\Client\ClientProvider
+        public: true
         arguments:
             - "%ekreative_redmine_login.redmine%"
 
@@ -20,12 +21,14 @@ services:
 
     ekreative_redmine_login.provider:
         class: Ekreative\RedmineLoginBundle\Security\RedmineUserProvider
+        public: true
         arguments:
             - "@ekreative_redmine_login.redmine"
             - "@ekreative_redmine_login.user_factory"
 
     ekreative_redmine_login.redmine:
         class: GuzzleHttp\Client
+        public: true
         arguments:
             -
                 base_uri: "%ekreative_redmine_login.redmine%"

@@ -3,13 +3,12 @@
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="Redmine Login">
-            <directory>tests/Ekreative/RedmineLoginBundle/</directory>
-            <directory>tests/AppBundle/Tests/</directory>
+            <directory>tests/*/*Bundle/Tests</directory>
         </testsuite>
     </testsuites>
 
     <php>
-        <server name="KERNEL_DIR" value="tests/" />
+        <server name="KERNEL_CLASS" value="AppKernel" />
     </php>
 
     <filter>

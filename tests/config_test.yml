@@ -14,6 +14,7 @@ security:
 
         secured_area:
             pattern: ^/
+            logout_on_user_change: true
             anonymous:
             simple_form:
                 authenticator: ekreative_redmine_login.authenticator
